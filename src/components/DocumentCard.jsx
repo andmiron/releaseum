@@ -7,14 +7,13 @@ import {
   RiMoreLine,
 } from "react-icons/ri";
 import { Menu, ActionIcon, Group, Text } from "@mantine/core";
-import { formatDate } from "../utils/formatDate";
 
 export function DocumentCard({ document, handleDeleteDocument }) {
   return (
     <Group justify="space-between" wrap="nowrap">
       <Group gap="xs">
         <Link
-          to={`documents/${document.slug}`}
+          to={`${document.id}`}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <Text fw={500} size="lg">
@@ -24,12 +23,6 @@ export function DocumentCard({ document, handleDeleteDocument }) {
       </Group>
 
       <Group>
-        <Group gap="xs" c="dimmed" size="sm">
-          <RiCalendarLine size="1rem" />
-          <Text span size="sm">
-            Created {formatDate(document.created_at)}
-          </Text>
-        </Group>
         <Menu shadow="md" position="bottom-end">
           <Menu.Target>
             <ActionIcon variant="subtle" color="gray">
@@ -41,14 +34,14 @@ export function DocumentCard({ document, handleDeleteDocument }) {
             <Menu.Item
               leftSection={<RiEyeLine size="1rem" />}
               component={Link}
-              to={`documents/${document.slug}`}
+              to={`${document.id}`}
             >
               View
             </Menu.Item>
             <Menu.Item
               leftSection={<RiEditLine size="1rem" />}
               component={Link}
-              to={`documents/${document.slug}/edit`}
+              to={`${document.id}/edit`}
             >
               Edit
             </Menu.Item>

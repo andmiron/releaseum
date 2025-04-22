@@ -41,12 +41,9 @@ export function BaseRouter() {
                 <Route index element={<ProjectViewPage />} />
                 <Route path="new-document" element={<NewDocumentPage />} />
                 <Route path="edit" element={<EditProjectPage />} />
-                <Route path="documents">
-                  <Route path=":documentSlug" element={<DocumentPage />} />
-                  <Route
-                    path=":documentSlug/edit"
-                    element={<EditDocumentPage />}
-                  />
+                <Route path=":documentId">
+                  <Route index element={<DocumentPage />} />
+                  <Route path="edit" element={<EditDocumentPage />} />
                 </Route>
               </Route>
             </Route>

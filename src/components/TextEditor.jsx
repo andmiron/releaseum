@@ -8,7 +8,7 @@ import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
 import Placeholder from "@tiptap/extension-placeholder";
 
-export function TextEditor({ onChange }) {
+export function TextEditor({ onChange, content = "" }) {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -22,6 +22,7 @@ export function TextEditor({ onChange }) {
         placeholder: "Start writing some content here...",
       }),
     ],
+    content,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
@@ -64,8 +65,8 @@ export function TextEditor({ onChange }) {
         <RichTextEditor.ControlsGroup>
           <RichTextEditor.AlignLeft />
           <RichTextEditor.AlignCenter />
-          <RichTextEditor.AlignJustify />
           <RichTextEditor.AlignRight />
+          <RichTextEditor.AlignJustify />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
