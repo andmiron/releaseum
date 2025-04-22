@@ -6,6 +6,7 @@ import { useAuthStore } from "./store/authStore";
 import { theme } from "./theme";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
+import "@mantine/tiptap/styles.css";
 import { BaseRouter } from "./routes/BaseRouter";
 import { ProjectRouter } from "./routes/ProjectRouter";
 import { getSubdomain } from "./lib/subdomain";

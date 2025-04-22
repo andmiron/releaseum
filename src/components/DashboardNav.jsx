@@ -25,11 +25,6 @@ export function DashboardNav() {
       icon: RiProjectorLine,
     },
     {
-      label: "Documents",
-      to: "/dashboard/documents",
-      icon: RiFileList3Line,
-    },
-    {
       label: "Profile",
       to: "/dashboard/profile",
       icon: RiUser3Line,

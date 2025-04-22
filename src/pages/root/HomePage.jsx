@@ -1,6 +1,6 @@
 import { Container, Title, Text, Button, Group, Stack } from "@mantine/core";
 
-export function Home() {
+export function HomePage() {
   return (
     <Container size="lg" py={80}>
       <Stack gap="xl" align="center">

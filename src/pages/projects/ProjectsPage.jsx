@@ -19,15 +19,16 @@ import {
   RiMoreLine,
   RiEditLine,
   RiDeleteBinLine,
+  RiEyeLine,
   RiGitBranchLine,
 } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ProjectsRepository } from "../lib/repositories/projectsRepository";
-import { useAuthStore } from "../store/authStore";
+import { ProjectsRepository } from "../../lib/repositories/projectsRepository";
+import { useAuthStore } from "../../store/authStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export function Projects() {
+export function ProjectsPage() {
   const ownerId = useAuthStore((state) => state.session.user.id);
   const queryClient = useQueryClient();
 
@@ -36,7 +37,7 @@ export function Projects() {
     isPending: getProjectsPending,
     isError,
   } = useQuery({
-    queryKey: ["projects"],
+    queryKey: ["projects", ownerId],
     queryFn: () => ProjectsRepository.getProjectsByOwnerId(ownerId),
   });
 
@@ -74,6 +75,14 @@ export function Projects() {
     });
   };
 
+  if (isError) {
+    return (
+      <Center>
+        <Text c="red">Error loading projects. Please try again later.</Text>
+      </Center>
+    );
+  }
+
   return (
     <Stack gap="lg" pos="relative">
       {getProjectsPending && <LoadingOverlay visible />}
@@ -88,11 +97,7 @@ export function Projects() {
         </Button>
       </Group>
 
-      {isError ? (
-        <Center>
-          <Text c="red">Error loading projects. Please try again later.</Text>
-        </Center>
-      ) : !getProjectsPending && (!projects || projects.length === 0) ? (
+      {!projects || projects.length === 0 ? (
         <Stack align="center" gap="md" py={50}>
           <Text size="lg" c="dimmed">
             No projects found
@@ -108,7 +113,12 @@ export function Projects() {
             <Card key={project.id} withBorder padding="md" radius="md">
               <Card.Section withBorder inheritPadding py="xs">
                 <Group justify="space-between" wrap="nowrap">
-                  <Text fw={400} truncate>
+                  <Text
+                    fw={400}
+                    truncate
+                    component={Link}
+                    to={`${project.slug}`}
+                  >
                     {project.name}
                   </Text>
                   <Menu shadow="md" width={200}>
@@ -119,7 +129,18 @@ export function Projects() {
                     </Menu.Target>
 
                     <Menu.Dropdown>
-                      <Menu.Item leftSection={<RiEditLine size="1rem" />}>
+                      <Menu.Item
+                        leftSection={<RiEyeLine size="1rem" />}
+                        component={Link}
+                        to={`${project.slug}`}
+                      >
+                        View
+                      </Menu.Item>
+                      <Menu.Item
+                        leftSection={<RiEditLine size="1rem" />}
+                        component={Link}
+                        to={`${project.slug}/edit`}
+                      >
                         Edit
                       </Menu.Item>
                       <Menu.Divider />

@@ -12,11 +12,11 @@ import {
 import { useForm, isNotEmpty } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { useNavigate } from "react-router-dom";
-import { ProjectsRepository } from "../lib/repositories/projectsRepository";
+import { ProjectsRepository } from "../../lib/repositories/projectsRepository";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import slugify from "slugify";
 
-export function NewProject() {
+export function NewProjectPage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 

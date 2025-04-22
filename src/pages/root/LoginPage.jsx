@@ -1,9 +1,7 @@
 import {
   Anchor,
   Button,
-  Checkbox,
   Container,
-  Group,
   Paper,
   PasswordInput,
   Text,
@@ -13,9 +11,9 @@ import {
 import { useForm, isEmail, hasLength } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthStore } from "../store/authStore";
+import { useAuthStore } from "../../store/authStore";
 
-export function Login() {
+export function LoginPage() {
   const login = useAuthStore((state) => state.login);
   const isLoading = useAuthStore((state) => state.isLoading);
   const navigate = useNavigate();

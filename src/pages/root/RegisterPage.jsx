@@ -12,10 +12,10 @@ import {
 import { useForm, isEmail, hasLength } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { Link } from "react-router-dom";
-import { useAuthStore } from "../store/authStore";
+import { useAuthStore } from "../../store/authStore";
 import { useNavigate } from "react-router-dom";
 
-export function Register() {
+export function RegisterPage() {
   const register = useAuthStore((state) => state.register);
   const isLoading = useAuthStore((state) => state.isLoading);
   const navigate = useNavigate();
