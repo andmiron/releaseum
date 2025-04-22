@@ -31,7 +31,11 @@ export default function App() {
         <ModalsProvider>
           <Notifications position="top-center" zIndex={1000} />
           <BrowserRouter>
-            {subdomain ? <ProjectRouter /> : <BaseRouter />}
+            {subdomain ? (
+              <ProjectRouter projectSlug={subdomain} />
+            ) : (
+              <BaseRouter />
+            )}
           </BrowserRouter>
         </ModalsProvider>
       </MantineProvider>

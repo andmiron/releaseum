@@ -86,4 +86,38 @@ export class DocumentsRepository {
     if (error) throw error;
     return data;
   }
+
+  static async getDocumentByProjectSlugAndDocumentSlug(
+    projectSlug,
+    documentSlug
+  ) {
+    console.log("Fetching project with slug:", projectSlug);
+
+    const { data: project, error: projectError } = await supabase
+      .from("projects")
+      .select("*")
+      .eq("slug", projectSlug)
+      .single();
+
+    console.log("Project query result:", { project, error: projectError });
+
+    if (projectError) throw projectError;
+    if (!project) throw new Error("Project not found");
+
+    console.log("Fetching document with slug:", documentSlug);
+
+    const { data: document, error: documentError } = await supabase
+      .from("documents")
+      .select("*")
+      .eq("project_id", project.id)
+      .eq("slug", documentSlug)
+      .single();
+
+    console.log("Document query result:", { document, error: documentError });
+
+    if (documentError) throw documentError;
+    if (!document) throw new Error("Document not found");
+
+    return document;
+  }
 }

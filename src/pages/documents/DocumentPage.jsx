@@ -6,6 +6,7 @@ import {
   Group,
   LoadingOverlay,
   CopyButton,
+  Anchor,
   ActionIcon,
   Tooltip,
   Paper,
@@ -30,7 +31,7 @@ export function DocumentPage() {
   });
 
   const documentUrl = document
-    ? `${projectSlug}.${window.location.host}/${document.slug}`
+    ? `${projectSlug}.${window.location.host}/${document.id}`
     : "";
 
   if (isDocumentError) {
@@ -75,9 +76,15 @@ export function DocumentPage() {
               <Text size="sm" c="dimmed">
                 Share via:
               </Text>
-              <Text size="sm" c="blue">
+              <Anchor
+                href={`//${documentUrl}`}
+                target="_blank"
+                underline="hover"
+                size="sm"
+                c="blue"
+              >
                 {documentUrl}
-              </Text>
+              </Anchor>
               <CopyButton value={documentUrl} timeout={2000}>
                 {({ copied, copy }) => (
                   <Tooltip

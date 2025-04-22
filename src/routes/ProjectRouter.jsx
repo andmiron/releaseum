@@ -1,8 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import { getSubdomain } from "../lib/subdomain";
+import { PublicDocumentPage } from "../pages/documents/PublicDocumentPage";
 
-export function ProjectRouter() {
-  const subdomain = getSubdomain();
-
-  return <h1>ProjectRouter: {subdomain}</h1>;
+export function ProjectRouter({ projectSlug }) {
+  return (
+    <Routes>
+      <Route
+        path="/:documentId"
+        element={<PublicDocumentPage projectSlug={projectSlug} />}
+      />
+    </Routes>
+  );
 }
