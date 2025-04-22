@@ -9,6 +9,7 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
+import { useTimeout } from "@mantine/hooks";
 import { useForm, isEmail, hasLength } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { Link } from "react-router-dom";
@@ -60,6 +61,7 @@ export function RegisterPage() {
         color: "green",
       });
 
+      await new Promise((resolve) => setTimeout(resolve, 200));
       navigate("/dashboard");
     } catch (err) {
       notifications.show({
@@ -87,12 +89,14 @@ export function RegisterPage() {
           <TextInput
             label="Name"
             placeholder="Your name"
+            description="Name is max 30 characters long"
             required
             {...registerForm.getInputProps("name")}
           />
           <TextInput
             label="Company"
             placeholder="Your company name"
+            description="Company name is max 30 characters long"
             required
             mt="md"
             {...registerForm.getInputProps("company")}
@@ -107,6 +111,7 @@ export function RegisterPage() {
           <PasswordInput
             label="Password"
             placeholder="Your password"
+            description="Password must have at least 6 characters"
             required
             mt="md"
             {...registerForm.getInputProps("password")}

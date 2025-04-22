@@ -18,7 +18,6 @@ export const useAuthStore = create((set, get) => ({
         });
 
       if (signUpError) throw signUpError;
-      set({ session: signUpResponse.session });
 
       const { data: profile, error: profileInsertError } =
         await ProfileRepository.createUserProfile(
@@ -30,7 +29,11 @@ export const useAuthStore = create((set, get) => ({
 
       if (profileInsertError) throw profileInsertError;
 
-      set({ profile });
+      set({
+        profile,
+        session: signUpResponse.session,
+        isInitialized: true,
+      });
       return profile;
     } finally {
       set({ isLoading: false });

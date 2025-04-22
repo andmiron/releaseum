@@ -29,8 +29,8 @@ export function BaseRouter() {
         <Route path="*" element={<div>404 Not Found</div>} />
       </Route>
 
-      <Route path="/dashboard">
-        <Route element={<ProtectedRoute />}>
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard">
           <Route element={<DashboardLayout />}>
             <Route index element={<OverviewPage />} />
 
