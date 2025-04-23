@@ -13,7 +13,7 @@ import {
 import { Link } from "react-router-dom";
 import { useForm, isNotEmpty } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
-import { TextEditor } from "../../components/TextEditor";
+import { TextEditor } from "../../components/textEditor/TextEditor";
 import { useAuthStore } from "../../store/authStore";
 import slugify from "slugify";
 import { useEffect, useRef } from "react";
@@ -130,7 +130,7 @@ export function EditDocumentPage() {
             />
 
             <Group justify="flex-end" mt="md">
-              <Button variant="light" component={Link} to="..">
+              <Button variant="light" component={Link} to="../..">
                 Cancel
               </Button>
               <Button type="submit">Save Changes</Button>

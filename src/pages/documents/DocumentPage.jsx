@@ -12,8 +12,9 @@ import {
   Paper,
   TypographyStylesProvider,
   Divider,
+  Button,
 } from "@mantine/core";
-import { RiFileCopyLine, RiCheckLine } from "react-icons/ri";
+import { RiFileCopyLine, RiCheckLine, RiEditLine } from "react-icons/ri";
 import { useQuery } from "@tanstack/react-query";
 import { DocumentsRepository } from "../../lib/repositories/documentsRepository";
 
@@ -54,22 +55,32 @@ export function DocumentPage() {
       {document && (
         <>
           <Stack gap="xs">
-            <Group justify="flex-start" align="center">
-              <Link
-                to="/dashboard/projects"
-                style={{ textDecoration: "none", color: "inherit" }}
+            <Group justify="space-between" align="center">
+              <Group justify="flex-start" align="center">
+                <Link
+                  to="/dashboard/projects"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Title fw={200}>Projects</Title>
+                </Link>
+                <Title fw={200}>&gt;</Title>
+                <Link
+                  to={`/dashboard/projects/${projectSlug}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <Title fw={200}>{projectSlug}</Title>
+                </Link>
+                <Title fw={200}>&gt;</Title>
+                <Title fw={200}>{document.title}</Title>
+              </Group>
+              <Button
+                variant="light"
+                component={Link}
+                to="edit"
+                leftSection={<RiEditLine size="1.2rem" />}
               >
-                <Title fw={200}>Projects</Title>
-              </Link>
-              <Title fw={200}>&gt;</Title>
-              <Link
-                to={`/dashboard/projects/${projectSlug}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <Title fw={200}>{projectSlug}</Title>
-              </Link>
-              <Title fw={200}>&gt;</Title>
-              <Title fw={200}>{document.title}</Title>
+                Edit Document
+              </Button>
             </Group>
 
             <Group>

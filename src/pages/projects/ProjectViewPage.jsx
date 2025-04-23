@@ -130,7 +130,8 @@ export function ProjectViewPage() {
                 </Button>
               </Group>
             </Group>
-            <Text size="sm" c="dimmed">
+
+            <Text size="sm" c="dimmed" style={{ wordBreak: "break-word" }}>
               {project.description}
             </Text>
           </Stack>

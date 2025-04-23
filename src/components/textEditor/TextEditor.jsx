@@ -7,6 +7,11 @@ import TextAlign from "@tiptap/extension-text-align";
 import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
 import Placeholder from "@tiptap/extension-placeholder";
+import Table from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableHeader from "@tiptap/extension-table-header";
+import TableCell from "@tiptap/extension-table-cell";
+import { TableControl } from "./tableControl";
 
 export function TextEditor({ onChange, content = "" }) {
   const editor = useEditor({
@@ -21,6 +26,15 @@ export function TextEditor({ onChange, content = "" }) {
       Placeholder.configure({
         placeholder: "Start writing some content here...",
       }),
+      Table.configure({
+        resizable: true,
+        HTMLAttributes: {
+          class: "tiptap",
+        },
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     content,
     onUpdate: ({ editor }) => {
@@ -67,6 +81,10 @@ export function TextEditor({ onChange, content = "" }) {
           <RichTextEditor.AlignCenter />
           <RichTextEditor.AlignRight />
           <RichTextEditor.AlignJustify />
+        </RichTextEditor.ControlsGroup>
+
+        <RichTextEditor.ControlsGroup>
+          <TableControl />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>

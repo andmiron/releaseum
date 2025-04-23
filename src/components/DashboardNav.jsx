@@ -24,11 +24,11 @@ export function DashboardNav() {
       to: "/dashboard/projects",
       icon: RiProjectorLine,
     },
-    {
-      label: "Profile",
-      to: "/dashboard/profile",
-      icon: RiUser3Line,
-    },
+    // {
+    //   label: "Profile",
+    //   to: "/dashboard/profile",
+    //   icon: RiUser3Line,
+    // },
   ];
 
   return (

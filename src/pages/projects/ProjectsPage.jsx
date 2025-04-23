@@ -157,7 +157,7 @@ export function ProjectsPage() {
               </Card.Section>
 
               <Stack gap="sm" mt="md" w="100%">
-                <Text size="sm" c="dimmed" lineClamp={2}>
+                <Text size="sm" c="dimmed" truncate="end">
                   {project.description}
                 </Text>
               </Stack>

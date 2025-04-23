@@ -14,7 +14,7 @@ import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { DocumentsRepository } from "../../lib/repositories/documentsRepository";
 import { useAuthStore } from "../../store/authStore";
-import { TextEditor } from "../../components/TextEditor";
+import { TextEditor } from "../../components/textEditor/TextEditor";
 import { ProjectsRepository } from "../../lib/repositories/projectsRepository";
 import { useParams } from "react-router-dom";
 import slugify from "slugify";
@@ -55,13 +55,13 @@ export function NewDocumentPage() {
         content
       );
     },
-    onSuccess: () => {
+    onSuccess: (newDocument) => {
       notifications.show({
         title: "Success",
         message: "Document created successfully",
         color: "green",
       });
-      navigate(`..`);
+      navigate(`../${newDocument.id}`);
     },
     onError: (error) => {
       notifications.show({

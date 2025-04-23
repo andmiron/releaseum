@@ -124,7 +124,8 @@ export function EditProjectPage() {
             label="Description"
             placeholder="Describe your project"
             required
-            minRows={3}
+            autosize
+            minRows={5}
             {...form.getInputProps("description")}
           />
 
