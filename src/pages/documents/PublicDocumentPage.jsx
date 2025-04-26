@@ -16,19 +16,18 @@ import { DocumentsRepository } from "../../lib/repositories/documentsRepository"
 export function PublicDocumentPage({ projectSlug }) {
   const { documentId } = useParams();
 
-  console.log("PublicDocumentPage props:", { projectSlug, documentId });
-
   const {
     data: document,
     isPending: isDocumentLoading,
     isError: isDocumentError,
   } = useQuery({
-    queryKey: ["public-document", documentId],
-    queryFn: () => {
-      console.log("Executing query with slugs:", { documentId });
-      return DocumentsRepository.getDocumentById(documentId);
-    },
-    enabled: !!documentId,
+    queryKey: ["public-document", projectSlug, documentId],
+    queryFn: () =>
+      DocumentsRepository.getDocumentByProjectSlugAndDocumentId(
+        projectSlug,
+        documentId
+      ),
+    enabled: !!projectSlug && !!documentId,
   });
 
   if (isDocumentError) {

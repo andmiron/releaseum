@@ -26,10 +26,7 @@ export function LoginPage() {
     },
     validate: {
       email: isEmail("Invalid email"),
-      password: hasLength(
-        { min: 6 },
-        "Password must have at least 6 characters"
-      ),
+      password: hasLength({ min: 6 }, "At least 6 characters long"),
     },
   });
 
@@ -68,7 +65,7 @@ export function LoginPage() {
         <form onSubmit={loginForm.onSubmit(handleSubmitLogin)}>
           <TextInput
             label="Email"
-            placeholder="you@mantine.dev"
+            placeholder="Your email"
             required
             {...loginForm.getInputProps("email")}
           />

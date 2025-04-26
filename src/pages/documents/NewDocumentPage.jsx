@@ -5,9 +5,9 @@ import {
   Group,
   TextInput,
   Stack,
-  Select,
   LoadingOverlay,
   Text,
+  Divider,
 } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
@@ -73,7 +73,6 @@ export function NewDocumentPage() {
   });
 
   const handleSubmit = form.onSubmit((values) => {
-    if (!project) return;
     const titleSlug = slugify(values.title, { lower: true, strict: true });
 
     createDocument.mutate({
@@ -98,15 +97,21 @@ export function NewDocumentPage() {
     );
   }
 
+  if (isProjectLoading || createDocument.isPending) {
+    return (
+      <Stack align="center" gap="md" py={50}>
+        <LoadingOverlay visible />
+      </Stack>
+    );
+  }
+
   return (
     <Stack gap="lg">
-      {(createDocument.isPending || isProjectLoading) && (
-        <LoadingOverlay visible />
-      )}
-
       <Group justify="space-between" align="center">
         <Title fw={200}>Create New Document</Title>
       </Group>
+
+      <Divider />
 
       <form onSubmit={handleSubmit}>
         <Stack gap="md">
@@ -125,9 +130,7 @@ export function NewDocumentPage() {
             <Button variant="light" onClick={() => navigate(`..`)}>
               Cancel
             </Button>
-            <Button type="submit" disabled={!project}>
-              Create Document
-            </Button>
+            <Button type="submit">Create Document</Button>
           </Group>
         </Stack>
       </form>

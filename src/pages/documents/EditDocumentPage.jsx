@@ -16,7 +16,7 @@ import { notifications } from "@mantine/notifications";
 import { TextEditor } from "../../components/textEditor/TextEditor";
 import { useAuthStore } from "../../store/authStore";
 import slugify from "slugify";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 export function EditDocumentPage() {
   const ownerId = useAuthStore((state) => state.session.user.id);
@@ -45,17 +45,14 @@ export function EditDocumentPage() {
     },
   });
 
-  const hasDocumentLoaded = useRef(false);
-
   useEffect(() => {
-    if (document && !hasDocumentLoaded.current) {
+    if (document) {
       form.setValues({
         title: document.title,
         content: document.content,
       });
-      hasDocumentLoaded.current = true;
     }
-  }, [document, form]);
+  }, [document]);
 
   const updateDocumentMutation = useMutation({
     mutationFn: ({ id, title, slug, content }) =>
@@ -114,7 +111,7 @@ export function EditDocumentPage() {
         <Title fw={200}>Edit Document</Title>
       </Group>
 
-      {document && hasDocumentLoaded.current && (
+      {document && (
         <form onSubmit={handleSubmit}>
           <Stack gap="md">
             <TextInput

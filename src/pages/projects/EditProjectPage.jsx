@@ -8,6 +8,7 @@ import {
   LoadingOverlay,
   Text,
 } from "@mantine/core";
+import { useEffect } from "react";
 import { useForm, isNotEmpty } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import { useNavigate, useParams, Link } from "react-router-dom";
@@ -32,8 +33,8 @@ export function EditProjectPage() {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
-      name: project?.name || "",
-      description: project?.description || "",
+      name: "",
+      description: "",
     },
     validate: {
       name: isNotEmpty("Project name is required"),
@@ -41,11 +42,21 @@ export function EditProjectPage() {
     },
   });
 
+  useEffect(() => {
+    if (project) {
+      form.setValues({
+        name: project.name,
+        description: project.description,
+      });
+    }
+  }, [project]);
+
   const updateProjectMutation = useMutation({
     mutationFn: ({ id, name, slug, description }) =>
       ProjectsRepository.updateProject(id, name, slug, description),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["project", projectSlug] });
 
       notifications.show({
         title: "Success!",
@@ -89,20 +100,27 @@ export function EditProjectPage() {
     );
   }
 
+  if (isProjectLoading || updateProjectMutation.isPending) {
+    return (
+      <Stack align="center" gap="md" py={50}>
+        <LoadingOverlay visible />
+      </Stack>
+    );
+  }
+
   return (
     <Stack gap="lg">
-      {(updateProjectMutation.isPending || isProjectLoading) && (
-        <LoadingOverlay visible />
-      )}
-
       <Group justify="flex-start" align="center">
-        <Link to={`..`} style={{ textDecoration: "none", color: "inherit" }}>
+        <Link
+          to={`/dashboard/projects`}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
           <Title fw={200}>Projects</Title>
         </Link>
         <Title fw={200}>&gt;</Title>
 
         <Link
-          to={`../${projectSlug}`}
+          to={`/dashboard/projects/${project?.slug}`}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <Title fw={200}>{project?.name || "Loading..."}</Title>

@@ -8,6 +8,7 @@ import {
   Select,
   Group,
   LoadingOverlay,
+  Divider,
 } from "@mantine/core";
 import { useForm, isNotEmpty } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
@@ -66,6 +67,8 @@ export function NewProjectPage() {
     <Stack gap="lg" pos="relative">
       {createProjectMutation.isPending && <LoadingOverlay visible />}
       <Title fw={200}>Create New Project</Title>
+
+      <Divider />
 
       <form onSubmit={projectCreateForm.onSubmit(handleSubmitRegister)}>
         <Stack gap="md">

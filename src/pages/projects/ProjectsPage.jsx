@@ -11,6 +11,7 @@ import {
   Menu,
   LoadingOverlay,
   Center,
+  Divider,
 } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { modals } from "@mantine/modals";
@@ -33,9 +34,9 @@ export function ProjectsPage() {
   const queryClient = useQueryClient();
 
   const {
-    data: projects,
+    data: projects = [],
     isPending: getProjectsPending,
-    isError,
+    isError: getProjectsError,
   } = useQuery({
     queryKey: ["projects", ownerId],
     queryFn: () => ProjectsRepository.getProjectsByOwnerId(ownerId),
@@ -47,7 +48,7 @@ export function ProjectsPage() {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       notifications.show({
         title: "Success",
-        message: "Project deleted successfully",
+        message: "Project has been deleted successfully",
       });
     },
     onError: (error) => {
@@ -75,7 +76,7 @@ export function ProjectsPage() {
     });
   };
 
-  if (isError) {
+  if (getProjectsError) {
     return (
       <Center>
         <Text c="red">Error loading projects. Please try again later.</Text>
@@ -97,7 +98,9 @@ export function ProjectsPage() {
         </Button>
       </Group>
 
-      {!projects || projects.length === 0 ? (
+      <Divider />
+
+      {projects.length === 0 ? (
         <Stack align="center" gap="md" py={50}>
           <Text size="lg" c="dimmed">
             No projects found

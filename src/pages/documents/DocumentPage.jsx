@@ -26,9 +26,13 @@ export function DocumentPage() {
     isPending: isDocumentLoading,
     isError: isDocumentError,
   } = useQuery({
-    queryKey: ["document", documentId],
-    queryFn: () => DocumentsRepository.getDocumentById(documentId),
-    enabled: !!documentId,
+    queryKey: ["document", projectSlug, documentId],
+    queryFn: () =>
+      DocumentsRepository.getDocumentByProjectSlugAndDocumentId(
+        projectSlug,
+        documentId
+      ),
+    enabled: !!projectSlug && !!documentId,
   });
 
   const documentUrl = document
@@ -48,10 +52,16 @@ export function DocumentPage() {
     );
   }
 
+  if (isDocumentLoading) {
+    return (
+      <Stack align="center" gap="md" py={50}>
+        <LoadingOverlay visible />
+      </Stack>
+    );
+  }
+
   return (
     <Stack gap="lg">
-      {isDocumentLoading && <LoadingOverlay visible />}
-
       {document && (
         <>
           <Stack gap="xs">

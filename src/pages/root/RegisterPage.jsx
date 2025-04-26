@@ -30,16 +30,10 @@ export function RegisterPage() {
       confirmPassword: "",
     },
     validate: {
-      name: hasLength({ min: 2, max: 30 }, "Name must be 2-30 characters long"),
-      company: hasLength(
-        { min: 2, max: 30 },
-        "Company name must be 2-30 characters long"
-      ),
       email: isEmail("Invalid email"),
-      password: hasLength(
-        { min: 6 },
-        "Password must have at least 6 characters"
-      ),
+      name: hasLength({ max: 30 }, "Maximum of 30 characters long"),
+      company: hasLength({ max: 30 }, "Maximum of 30 characters long"),
+      password: hasLength({ min: 6 }, "At least 6 characters long"),
       confirmPassword: (value, values) =>
         value !== values.password ? "Passwords do not match" : null,
     },
@@ -61,7 +55,7 @@ export function RegisterPage() {
       });
 
       await new Promise((resolve) => setTimeout(resolve, 200));
-      navigate("/dashboard");
+      navigate("/login");
     } catch (err) {
       notifications.show({
         title: "Register failed!",
@@ -86,26 +80,26 @@ export function RegisterPage() {
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <form onSubmit={registerForm.onSubmit(handleSubmitRegister)}>
           <TextInput
+            label="Email"
+            placeholder="Your email"
+            required
+            {...registerForm.getInputProps("email")}
+          />
+          <TextInput
             label="Name"
             placeholder="Your name"
-            description="Name is max 30 characters long"
+            description="Maximum of 30 characters long"
+            mt="md"
             required
             {...registerForm.getInputProps("name")}
           />
           <TextInput
             label="Company"
             placeholder="Your company name"
-            description="Company name is max 30 characters long"
+            description="Maximum of 30 characters long"
             required
             mt="md"
             {...registerForm.getInputProps("company")}
-          />
-          <TextInput
-            label="Email"
-            placeholder="john@doe.com"
-            required
-            mt="md"
-            {...registerForm.getInputProps("email")}
           />
           <PasswordInput
             label="Password"
