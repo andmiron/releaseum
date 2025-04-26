@@ -3,14 +3,11 @@ export function getSubdomain() {
 
   const parts = hostname.split(".");
 
-  if (hostname.endsWith(".pages.dev")) {
-    if (parts.length > 3) {
-      return parts[0];
-    }
-    return null;
+  if (hostname.endsWith(".com") && parts.length > 2) {
+    return parts[0];
   }
 
-  if (parts.length > 2) {
+  if (parts.length > 3) {
     return parts[0];
   }
 
